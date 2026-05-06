@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SEAL — CODEX 01 — The Skill, Documenting Itself</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@400;500;700;900&family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&family=Newsreader:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  /* ───────────────────────────────────────────────────────────
+     SEAL — Meta-palette tokens
+     The doctrinal register from which all four palettes are
+     framed. Neutral, dark, mil-spec. The view from the codex.
+     ─────────────────────────────────────────────────────────── */
+  :root {
+    /* Substrate */
+    --void:        #0A0A0B;
+    --ink:         #131316;
+    --charcoal:    #1A1A1E;
+    --graphite:    #232328;
+    --slate:       #34343B;
+    --hairline:    #2A2A30;
+
+    /* Type */
+    --bone:        #D9D2C4;
+    --paper:       #EDE6D6;
+    --grey:        #6E6E76;
+    --dim:         #4A4A50;
+    --mute:        #888892;
+
+    /* Meta-accent (used only at the masthead level) */
+    --doctrine:    #C8933A;
+    --classified:  #C73E1D;
+
+    /* PALETTE TOKENS — the four canonical SEAL palettes */
+
+    /* Coldwater Pragmatism */
+    --cw-bg:        #19232E;
+    --cw-haze:      #B8C2C9;
+    --cw-anechoic:  #0D1217;
+    --cw-zinc:      #5C7872;
+    --cw-orange:    #FF6B1A;
+
+    /* Rustbelt Kinetic */
+    --rb-bg:        #2A2620;
+    --rb-iron:      #3B362F;
+    --rb-shop:      #6B7A6B;
+    --rb-oxide:     #8A4030;
+    --rb-yellow:    #E8C547;
+    --rb-arc:       #5FC4FF;
+
+    /* Anechoic Minimal */
+    --an-bg:        #000000;
+    --an-copper:    #C97862;
+    --an-gold:      #B89B6E;
+    --an-p31:       #4ADE80;
+    --an-tempest:   #DC2626;
+    --an-cobalt:    #2563EB;
+
+    /* Desert Pragmatism */
+    --dp-bg:        #3D3527;
+    --dp-fde:       #6B5D45;
+    --dp-sand:      #D6C8A8;
+    --dp-bone:      #E8DFCB;
+    --dp-cerise:    #C73E1D;
+    --dp-od:        #4A4F38;
+
+    /* Type families */
+    --display: 'Saira Condensed', 'Helvetica Neue', sans-serif;
+    --mono: 'JetBrains Mono', 'IBM Plex Mono', monospace;
+    --serif: 'Newsreader', 'Iowan Old Style', serif;
+
+    /* Spatial */
+    --col: 1.4rem;
+    --rule: 1px;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--void);
+    color: var(--bone);
+    font-family: var(--mono);
+    font-size: 13px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    min-height: 100vh;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(200, 147, 58, 0.025), transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(28, 28, 33, 0.4), transparent 60%);
+  }
+
+  /* ───────────────────────────────────────────────────────────
+     CLASSIFICATION BANNER
+     ─────────────────────────────────────────────────────────── */
+  .classification {
+    background: var(--classified);
+    color: var(--paper);
+    text-align: center;
+    padding: 6px 12px;
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    border-bottom: var(--rule) solid var(--void);
+  }
+
+  .classification--bottom {
+    border-bottom: none;
+    border-top: var(--rule) solid var(--void);
+  }
+
+  /* ───────────────────────────────────────────────────────────
+     PAGE FRAME
+     ─────────────────────────────────────────────────────────── */
+  .page {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 32px 36px 64px;
+  }
+
+  /* ───────────────────────────────────────────────────────────
+     MASTHEAD
+     ─────────────────────────────────────────────────────────── */
+  .masthead {
+    border: var(--rule) solid var(--hairline);
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    margin-bottom: 24px;
+  }
+
+  .masthead__main {
+    padding: 28px 32px 24px;
+    border-right: var(--rule) solid var(--hairline);
+  }
+
+  .masthead__doctype {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--doctrine);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    display: flex;
+    gap: 18px;
+  }
+
+  .masthead__doctype span:nth-child(2) { color: var(--mute); }
+
+  .wordmark {
+    font-family: var(--display);
+    font-weight: 900;
+    font-size: 92px;
+    line-height: 0.92;
+    letter-spacing: -0.02em;
+    color: var(--paper);
+    margin: 0;
+    padding: 4px 0 12px;
+    text-transform: uppercase;
+  }
+
+  .tagline {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 17px;
+    color: var(--bone);
+    margin: 0;
+    line-height: 1.35;
+  }
+
+  .tagline em {
+    color: var(--doctrine);
+    font-style: italic;
+  }
+
+  .masthead__meta {
+    padding: 28px 32px 24px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 8px 16px;
+    align-content: start;
+    font-family: var(--mono);
+    font-size: 11px;
+  }
+
+  .masthead__meta dt {
+    color: var(--mute);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 9.5px;
+    padding-top: 2px;
+  }
+
+  .masthead__meta dd {
+    margin: 0;
+    color: var(--bone);
+  }
+
+  /* ───────────────────────────────────────────────────────────
+     SECTION HEADER (label + rule)
+     ─────────────────────────────────────────────────────────── */
+  .section {
+    margin-top: 36px;
+  }
+
+  .section__label {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    border-bottom: var(--rule) solid var(--hairline);
+    padding-bottom: 8px;
+    margin-bottom: 18px;
+  }
+
+  .section__label h2 {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: 0.04em;
+    color: var(--paper);
+    margin: 0;
+    text-transform: uppercase;
+  }
+
+  .section__label .num {
+    font-family: var(--mono);
+    color: var(--doctrine);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .section__label .right {
+    margin-left: auto;
+    font-family: var(--mono);
+    color: var(--mute);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  /* ───────────────────────────────────────────────────────────
+     PROSE
+     ─────────────────────────────────────────────────────────── */
+  .prose {
+    font-family: var(--mono);
+    font-size: 12.5px;
+    line-height: 1.62;
+    color: var(--bone);
+    max-width: 78ch;
+  }
+
+  .prose p { margin: 0 0 12px; }
+
+  .prose strong {
+    font-weight: 700;
+    color: var(--paper);
+  }
+
+  .prose em {
+    font-family: var(--serif);
+    font-style: italic;
+    color: var(--doctrine);
+  }
+
+  /* ───────────────────────────────────────────────────────────
+     IRON RULES — numbered ledger
+     ─────────────────────────────────────────────────────────── */
+  .rules {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: var(--rule) solid var(--hairline);
+  }
+
+  .rule {
+    padding: 14px 18px 16px;
+    border-right: var(--rule) solid var(--hairline);
+    border-bottom: var(--rule) solid var(--hairline);
+    position: relative;
+  }
+
+  .rule:nth-child(2n) { border-right: none; }
+  .rule:nth-last-child(-n+2) { border-bottom: none; }
+
+  .rule__num {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--doctrine);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .rule__title {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--paper);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    margin: 0 0 6px;
+  }
+
+  .rule__body {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    line-height: 1.55;
+    color: var(--bone);
+    margin: 0;
+  }
+
+  /* ───────────────────────────────────────────────────────────
+     PALETTE QUADRANT GRID
+     Each quadrant rendered in its own micro-aesthetic.
+     ─────────────────────────────────────────────────────────── */
+  .quadrants {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: var(--rule) solid var(--hairline);
+  }
+
+  .quad {
+    padding: 24px 22px 22px;
+    min-height: 280px;
+    position: relative;
+    border-right: var(--rule) solid var(--hairline);
+    border-bottom: var(--rule) solid var(--hairline);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .quad:nth-child(2n) { border-right: none; }
+  .quad:nth-last-child(-n+2) { border-bottom: none; }
+
+  .quad__code {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    opacity: 0.7;
+  }
+
+  .quad__name {
+    font-family: var(--display);
+    font-weight: 900;
+    font-size: 26px;
+    line-height: 0.95;
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+    margin: 0 0 10px;
+  }
+
+  .quad__domain {
+    font-family: var(--mono);
+    font-size: 11px;
+    line-height: 1.5;
+    margin: 0 0 14px;
+    opacity: 0.85;
+  }
+
+  .quad__swatches {
+    display: flex;
+    gap: 0;
+    margin-bottom: 14px;
+    border: var(--rule) solid currentColor;
+    height: 28px;
+  }
+
+  .quad__swatch {
+    flex: 1;
+    border-right: var(--rule) solid currentColor;
+  }
+
+  .quad__swatch:last-child { border-right: none; }
+
+  .quad__thesis {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 14px;
+    line-height: 1.35;
+    margin: 0;
+  }
+
+  /* Coldwater quadrant */
+  .quad--coldwater {
+    background: var(--cw-bg);
+    color: var(--cw-haze);
+    background-image:
+      linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, transparent 30%),
+      repeating-linear-gradient(90deg, transparent 0, transparent 40px, rgba(184, 194, 201, 0.04) 40px, rgba(184, 194, 201, 0.04) 41px);
+  }
+  .quad--coldwater .quad__code { color: var(--cw-orange); }
+
+  /* Rustbelt quadrant */
+  .quad--rustbelt {
+    background: var(--rb-bg);
+    color: var(--rb-yellow);
+    background-image:
+      repeating-linear-gradient(45deg, rgba(232, 197, 71, 0.06) 0 8px, transparent 8px 24px);
+  }
+  .quad--rustbelt .quad__code { color: var(--rb-arc); }
+  .quad--rustbelt .quad__name { color: var(--dp-sand); }
+  .quad--rustbelt .quad__domain { color: var(--dp-bone); opacity: 0.7; }
+  .quad--rustbelt .quad__thesis { color: var(--dp-bone); }
+
+  /* Anechoic quadrant */
+  .quad--anechoic {
+    background: var(--an-bg);
+    color: var(--an-p31);
+    background-image:
+      radial-gradient(circle at 50% 40%, rgba(74, 222, 128, 0.08) 0%, transparent 60%);
+  }
+  .quad--anechoic .quad__code { color: var(--an-tempest); }
+  .quad--anechoic .quad__name { color: var(--an-p31); font-family: var(--mono); font-weight: 700; font-size: 22px; letter-spacing: 0.04em; }
+  .quad--anechoic .quad__thesis { font-family: var(--mono); font-style: normal; color: var(--an-p31); font-size: 12px; }
+
+  /* Desert quadrant */
+  .quad--desert {
+    background: var(--dp-bg);
+    color: var(--dp-bone);
+    background-image:
+      radial-gradient(ellipse at 30% 20%, rgba(232, 223, 203, 0.06) 0%, transparent 50%);
+  }
+  .quad--desert .quad__code { color: var(--dp-cerise); }
+  .quad--desert .quad__name { color: var(--dp-sand); }
+
+  /* ───────────────────────────────────────────────────────────
+     STACK DIAGRAM
+     ─────────────────────────────────────────────────────────── */
+  .stack {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 0;
+    border: var(--rule) solid var(--hairline);
+  }
+
+  .stack__row {
+    display: contents;
+  }
+
+  .stack__label, .stack__value {
+    padding: 12px 16px;
+    border-bottom: var(--rule) solid var(--hairline);
+    font-family: var(--mono);
+    font-size: 11px;
+  }
+
+  .stack__row:last-child .stack__label,
+  .stack__row:last-child .stack__value {
+    border-bottom: none;
+  }
+
+  .stack__label {
+    color: var(--mute);
+    background: var(--ink);
+    border-right: var(--rule) solid var(--hairline);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+  }
+
+  .stack__value { color: var(--bone); }
+  .stack__value strong { color: var(--paper); font-weight: 700; }
+
+  /* ───────────────────────────────────────────────────────────
+     DOC TYPES — six-up grid
+     ─────────────────────────────────────────────────────────── */
+  .doctypes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border: var(--rule) solid var(--hairline);
+  }
+
+  .doctype {
+    padding: 16px 18px 18px;
+    border-right: var(--rule) solid var(--hairline);
+    border-bottom: var(--rule) solid var(--hairline);
+  }
+
+  .doctype:nth-child(3n) { border-right: none; }
+  .doctype:nth-last-child(-n+3) { border-bottom: none; }
+
+  .doctype__code {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--doctrine);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .doctype__name {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 17px;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: var(--paper);
+    margin: 0 0 8px;
+  }
+
+  .doctype__body {
+    font-family: var(--mono);
+    font-size: 11px;
+    line-height: 1.5;
+    color: var(--bone);
+    margin: 0;
+  }
+
+  /* ───────────────────────────────────────────────────────────
+     THESIS BLOCK — final cover line
+     ─────────────────────────────────────────────────────────── */
+  .thesis {
+    margin-top: 48px;
+    padding: 36px 40px;
+    border: var(--rule) solid var(--hairline);
+    text-align: center;
+    background: linear-gradient(180deg, var(--ink) 0%, var(--void) 100%);
+  }
+
+  .thesis__label {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--doctrine);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  .thesis__line {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 1.25;
+    color: var(--paper);
+    margin: 0;
+  }
+
+  /* ───────────────────────────────────────────────────────────
+     FOOTER
+     ─────────────────────────────────────────────────────────── */
+  .footer {
+    margin-top: 32px;
+    padding-top: 16px;
+    border-top: var(--rule) solid var(--hairline);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--mute);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .footer__right { text-align: right; }
+
+  /* ───────────────────────────────────────────────────────────
+     RESPONSIVE
+     ─────────────────────────────────────────────────────────── */
+  @media (max-width: 760px) {
+    .masthead { grid-template-columns: 1fr; }
+    .masthead__main { border-right: none; border-bottom: var(--rule) solid var(--hairline); }
+    .wordmark { font-size: 64px; }
+    .rules, .quadrants, .doctypes { grid-template-columns: 1fr; }
+    .rule, .quad, .doctype { border-right: none !important; }
+    .doctypes { grid-template-columns: 1fr; }
+    .stack { grid-template-columns: 1fr; }
+    .stack__label { border-right: none; border-bottom: none; padding-bottom: 4px; }
+    .thesis__line { font-size: 22px; }
+    .page { padding: 20px 18px 48px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="classification">UNCLASSIFIED // BRAND DOCTRINE — DISTRIBUTION A</div>
+
+<div class="page">
+
+  <!-- MASTHEAD -->
+  <header class="masthead">
+    <div class="masthead__main">
+      <div class="masthead__doctype">
+        <span>SEAL—01 / CODEX</span>
+        <span>SELF-REFERENTIAL ENTRY</span>
+      </div>
+      <h1 class="wordmark">SEAL</h1>
+      <p class="tagline">Sea. Air. Land.<br>Every domain has a doctrine. Every doctrine has a <em>look</em>.</p>
+    </div>
+    <dl class="masthead__meta">
+      <dt>System</dt>     <dd>SEAL v2.0 (formerly THEATER)</dd>
+      <dt>Author</dt>     <dd>Ebenz Augustave / ANP Studio</dd>
+      <dt>Lineage</dt>    <dd>AKTE → DEADLIGHT → SEAL</dd>
+      <dt>Palettes</dt>   <dd>4 (CW · RB · AN · DP) — Air pending</dd>
+      <dt>Doc types</dt>  <dd>6 (CODEX · CARD · STACK · BRIEF · COVER · INDEX)</dd>
+      <dt>Iron rules</dt> <dd>8 — non-negotiable</dd>
+      <dt>Stage</dt>      <dd>Released</dd>
+      <dt>Date</dt>       <dd>24 APR 2026</dd>
+    </dl>
+  </header>
+
+  <!-- FRAMING -->
+  <section class="section">
+    <div class="section__label">
+      <span class="num">§ 01</span>
+      <h2>Framing</h2>
+      <span class="right">Codex Entry / Self-Referential</span>
+    </div>
+    <div class="prose">
+      <p>SEAL is a Claude skill in the AKTE mold — installable, opinionated, four-palette canon, six document types, eight iron rules. It generates brand doctrine for the new defense-industrial stack: <strong>Coldwater Pragmatism</strong> for the maritime layer, <strong>Rustbelt Kinetic</strong> for the production base, <strong>Anechoic Minimal</strong> for the spectrum, and <strong>Desert Pragmatism</strong> as the founding aesthetic that the others define themselves against.</p>
+      <p>The premise: defense-tech companies need doctrinally specific visual languages, not generic "futuristic" mood-boards. Each operational domain (sea / factory / spectrum / ground) has its own constraints, lineage, and accent grammar. SEAL codifies those.</p>
+      <p>This document is itself a CODEX entry — the system documenting itself in its own format. Read as a structural reference for what a finished doctrine entry looks like rendered.</p>
+    </div>
+  </section>
+
+  <!-- THE FOUR PALETTES -->
+  <section class="section">
+    <div class="section__label">
+      <span class="num">§ 02</span>
+      <h2>The Four Palettes</h2>
+      <span class="right">Canon / v1</span>
+    </div>
+
+    <div class="quadrants">
+
+      <div class="quad quad--coldwater">
+        <div>
+          <div class="quad__code">SEAL—CW · COLDWATER PRAGMATISM</div>
+          <h3 class="quad__name">Coldwater<br>Pragmatism</h3>
+          <p class="quad__domain">USV / UUV / naval autonomy / sub-surface. The maritime layer. Saronic, Saildrone, HII REMUS, BAE/Boeing Orca.</p>
+          <div class="quad__swatches" style="border-color: var(--cw-haze);">
+            <div class="quad__swatch" style="background: #0F1A24; border-color: var(--cw-haze);"></div>
+            <div class="quad__swatch" style="background: var(--cw-bg); border-color: var(--cw-haze);"></div>
+            <div class="quad__swatch" style="background: #4A5560; border-color: var(--cw-haze);"></div>
+            <div class="quad__swatch" style="background: var(--cw-haze); border-color: var(--cw-haze);"></div>
+            <div class="quad__swatch" style="background: var(--cw-zinc); border-color: var(--cw-haze);"></div>
+            <div class="quad__swatch" style="background: var(--cw-orange); border-color: var(--cw-haze);"></div>
+          </div>
+        </div>
+        <p class="quad__thesis">The ocean doesn't care about your DoD rating. Build like it.</p>
+      </div>
+
+      <div class="quad quad--rustbelt">
+        <div>
+          <div class="quad__code">SEAL—RB · RUSTBELT KINETIC</div>
+          <h3 class="quad__name">Rustbelt<br>Kinetic</h3>
+          <p class="quad__domain">Manufacturing / Arsenal / production base. The upstream layer. Anduril Arsenal-1, Hadrian, Firestorm, Apex.</p>
+          <div class="quad__swatches" style="border-color: var(--dp-bone);">
+            <div class="quad__swatch" style="background: var(--rb-iron); border-color: var(--dp-bone);"></div>
+            <div class="quad__swatch" style="background: var(--rb-shop); border-color: var(--dp-bone);"></div>
+            <div class="quad__swatch" style="background: var(--rb-oxide); border-color: var(--dp-bone);"></div>
+            <div class="quad__swatch" style="background: var(--rb-yellow); border-color: var(--dp-bone);"></div>
+            <div class="quad__swatch" style="background: var(--rb-arc); border-color: var(--dp-bone);"></div>
+          </div>
+        </div>
+        <p class="quad__thesis">The prototype is the brochure. The line is the product.</p>
+      </div>
+
+      <div class="quad quad--anechoic">
+        <div>
+          <div class="quad__code">SEAL—AN · ANECHOIC MINIMAL</div>
+          <h3 class="quad__name">ANECHOIC<br>MINIMAL</h3>
+          <p class="quad__domain" style="color: var(--an-p31); opacity: 0.85;">EW / directed energy / RF / SIGINT. The spectrum layer. Epirus, Anduril Pulsar, BlueHalo, Hidden Level.</p>
+          <div class="quad__swatches" style="border-color: var(--an-p31);">
+            <div class="quad__swatch" style="background: #050505; border-color: var(--an-p31);"></div>
+            <div class="quad__swatch" style="background: var(--an-copper); border-color: var(--an-p31);"></div>
+            <div class="quad__swatch" style="background: var(--an-gold); border-color: var(--an-p31);"></div>
+            <div class="quad__swatch" style="background: var(--an-p31); border-color: var(--an-p31);"></div>
+            <div class="quad__swatch" style="background: var(--an-tempest); border-color: var(--an-p31);"></div>
+            <div class="quad__swatch" style="background: var(--an-cobalt); border-color: var(--an-p31);"></div>
+          </div>
+        </div>
+        <p class="quad__thesis">Spectrum is terrain. We hold the high ground.</p>
+      </div>
+
+      <div class="quad quad--desert">
+        <div>
+          <div class="quad__code">SEAL—DP · DESERT PRAGMATISM</div>
+          <h3 class="quad__name">Desert<br>Pragmatism</h3>
+          <p class="quad__domain">Group-1/2 UAS / austere ground / FOB. The ground-truth layer. Anduril, Skydio, AeroVironment, Shield AI.</p>
+          <div class="quad__swatches" style="border-color: var(--dp-bone);">
+            <div class="quad__swatch" style="background: var(--dp-fde); border-color: var(--dp-bone);"></div>
+            <div class="quad__swatch" style="background: #5C4F3A; border-color: var(--dp-bone);"></div>
+            <div class="quad__swatch" style="background: var(--dp-od); border-color: var(--dp-bone);"></div>
+            <div class="quad__swatch" style="background: var(--dp-sand); border-color: var(--dp-bone);"></div>
+            <div class="quad__swatch" style="background: var(--dp-bone); border-color: var(--dp-bone);"></div>
+            <div class="quad__swatch" style="background: var(--dp-cerise); border-color: var(--dp-bone);"></div>
+          </div>
+        </div>
+        <p class="quad__thesis">Build for the FOB. Everything else follows.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- DOCUMENT TYPES -->
+  <section class="section">
+    <div class="section__label">
+      <span class="num">§ 03</span>
+      <h2>The Six Document Types</h2>
+      <span class="right">Output / Typology</span>
+    </div>
+    <div class="doctypes">
+      <div class="doctype">
+        <div class="doctype__code">SEAL—01</div>
+        <h3 class="doctype__name">Codex</h3>
+        <p class="doctype__body">Full ~10-section expanded doctrine entry. The headline artifact. Default when the user says "expand," "write," or "draft."</p>
+      </div>
+      <div class="doctype">
+        <div class="doctype__code">SEAL—02</div>
+        <h3 class="doctype__name">Card</h3>
+        <p class="doctype__body">Single-page summary: name, vibe, palette, three signature visuals, thesis line. ~250 words.</p>
+      </div>
+      <div class="doctype">
+        <div class="doctype__code">SEAL—03</div>
+        <h3 class="doctype__name">Stack</h3>
+        <p class="doctype__body">Cross-palette relationship map. How the four interlock — payloads, supply chains, dependencies. The VOL infrastructure view.</p>
+      </div>
+      <div class="doctype">
+        <div class="doctype__code">SEAL—04</div>
+        <h3 class="doctype__name">Brief</h3>
+        <p class="doctype__body">Application document. Project one palette onto a specific company, product, or campaign. Brand audits and pitch prep.</p>
+      </div>
+      <div class="doctype">
+        <div class="doctype__code">SEAL—05</div>
+        <h3 class="doctype__name">Cover</h3>
+        <p class="doctype__body">Thesis-line + signature image direction. Title slides, deck covers, single-image brand statements. ~50 words plus visual brief.</p>
+      </div>
+      <div class="doctype">
+        <div class="doctype__code">SEAL—06</div>
+        <h3 class="doctype__name">Index</h3>
+        <p class="doctype__body">Full taxonomy view. All four palettes with one-line summaries and pointers to the codices. Onboarding / inside-front-cover.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- IRON RULES -->
+  <section class="section">
+    <div class="section__label">
+      <span class="num">§ 04</span>
+      <h2>The Eight Iron Rules</h2>
+      <span class="right">Non-negotiable</span>
+    </div>
+    <div class="rules">
+      <div class="rule">
+        <div class="rule__num">RULE 01</div>
+        <h3 class="rule__title">Mass over swagger</h3>
+        <p class="rule__body">Defense aesthetics carry tonnage. Reject Silicon Valley register — agility, lightness, optimism, friendliness, "delight." The work has weight because the hardware does.</p>
+      </div>
+      <div class="rule">
+        <div class="rule__num">RULE 02</div>
+        <h3 class="rule__title">Anti-glint is doctrine</h3>
+        <p class="rule__body">Matte finishes only. No gradients in UI. No beveled chrome. The only permitted shine is environmental — water, glass, metal under direct light — never finish itself.</p>
+      </div>
+      <div class="rule">
+        <div class="rule__num">RULE 03</div>
+        <h3 class="rule__title">One protected accent</h3>
+        <p class="rule__body">Each palette reserves one high-saturation color as a semantic class — alert, signal, ID, completion. Never decoration. CW = orange. RB = arc-blue. AN = P31. DP = cerise.</p>
+      </div>
+      <div class="rule">
+        <div class="rule__num">RULE 04</div>
+        <h3 class="rule__title">Real units only</h3>
+        <p class="rule__body">Bearings, knots, decibels, PSI, hours-on-station, units-per-month. Never "blazing fast," "next-generation," "AI-powered." If a number can be measured, use the instrument's unit.</p>
+      </div>
+      <div class="rule">
+        <div class="rule__num">RULE 05</div>
+        <h3 class="rule__title">Cultural lineage required</h3>
+        <p class="rule__body">Every palette traces a 30+ year industrial heritage that predates the current company. Bath Iron Works, Bell Labs, Willow Run. A palette without lineage is a moodboard.</p>
+      </div>
+      <div class="rule">
+        <div class="rule__num">RULE 06</div>
+        <h3 class="rule__title">Stack-aware</h3>
+        <p class="rule__body">Every palette declares its position in the stack — which palettes carry its payload, which feed its supply, which it depends on. No palette stands alone.</p>
+      </div>
+      <div class="rule">
+        <div class="rule__num">RULE 07</div>
+        <h3 class="rule__title">Reject the tourist palette</h3>
+        <p class="rule__body">Do not borrow another palette's signifiers casually. Coldwater does not wear FDE. Anechoic does not wear safety orange. The carrier's palette wins.</p>
+      </div>
+      <div class="rule">
+        <div class="rule__num">RULE 08</div>
+        <h3 class="rule__title">Thesis line on the cover</h3>
+        <p class="rule__body">Every palette ships with one quotable sentence — the line that goes on the cover when presented. No palette is finished until its line is written.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- STACK RELATIONSHIP -->
+  <section class="section">
+    <div class="section__label">
+      <span class="num">§ 05</span>
+      <h2>The Stack</h2>
+      <span class="right">How the four interlock</span>
+    </div>
+    <div class="stack">
+      <div class="stack__row">
+        <div class="stack__label">Spectrum</div>
+        <div class="stack__value"><strong>Anechoic</strong> — the invisible spine. EW, DE, RF. The first round fired.</div>
+      </div>
+      <div class="stack__row">
+        <div class="stack__label">Maritime</div>
+        <div class="stack__value"><strong>Coldwater</strong> — carries Anechoic-doctrine EW payload across denied littoral.</div>
+      </div>
+      <div class="stack__row">
+        <div class="stack__label">Ground</div>
+        <div class="stack__value"><strong>Desert</strong> — operator-led. Where the doctrine actually meets the adversary.</div>
+      </div>
+      <div class="stack__row">
+        <div class="stack__label">Industrial</div>
+        <div class="stack__value"><strong>Rustbelt</strong> — upstream of all three. The line that builds the hardware. Tempo as deterrent.</div>
+      </div>
+    </div>
+    <p class="prose" style="margin-top: 16px;">Read top-down: Anechoic clears the spectrum. Coldwater holds the maritime approach. Desert closes the ground. Rustbelt makes all of it possible at rate. <strong>The stack is the brand.</strong></p>
+  </section>
+
+  <!-- THESIS -->
+  <div class="thesis">
+    <div class="thesis__label">— Cover Line —</div>
+    <p class="thesis__line">Sea, air, land — every domain has a doctrine.<br>Every doctrine has a look.</p>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer__left">SEAL · CODEX · v2.0 · 25 APR 2026</div>
+    <div class="footer__right">ANP STUDIO · ANTHROPIC SKILLS REGISTRY</div>
+  </footer>
+
+</div>
+
+<div class="classification classification--bottom">UNCLASSIFIED // BRAND DOCTRINE — DISTRIBUTION A</div>
+
+</body>
+</html>
