@@ -66,6 +66,14 @@
     --dp-cerise:    #C73E1D;
     --dp-od:        #4A4F38;
 
+    /* SEAL—AH · Apex Heraldic — air */
+    --ah-bg:        #0A2240;  /* Old Glory Blue */
+    --ah-steel:     #243348;  /* Strategic Steel */
+    --ah-airforce:  #5C7A99;  /* Air Force Blue (Pantone 5395) */
+    --ah-white:     #EDE9DC;  /* Service White */
+    --ah-gold:      #E0AA0F;  /* Heraldic Gold (Pantone 7406) */
+    --ah-red:       #BF0A30;  /* Old Glory Red (Pantone 193, restricted) */
+
     /* Type families */
     --display: 'Saira Condensed', 'Helvetica Neue', sans-serif;
     --mono: 'JetBrains Mono', 'IBM Plex Mono', monospace;
@@ -341,7 +349,9 @@
   }
 
   .quad:nth-child(2n) { border-right: none; }
-  .quad:nth-last-child(-n+2) { border-bottom: none; }
+  .quad:nth-child(3),
+  .quad:nth-child(4) { border-bottom: var(--rule) solid var(--hairline); }
+  .quad:last-child { border-bottom: none; border-right: none; }
 
   .quad__code {
     font-family: var(--mono);
@@ -435,6 +445,26 @@
   }
   .quad--desert .quad__code { color: var(--dp-cerise); }
   .quad--desert .quad__name { color: var(--dp-sand); }
+
+  /* Apex Heraldic quadrant — air */
+  .quad--apex {
+    background: var(--ah-bg);
+    color: var(--ah-white);
+    grid-column: 1 / -1;
+    border-right: none;
+    background-image:
+      linear-gradient(180deg, rgba(0, 0, 0, 0.25) 0%, transparent 40%),
+      repeating-linear-gradient(180deg, transparent 0, transparent 80px, rgba(224, 170, 15, 0.06) 80px, rgba(224, 170, 15, 0.06) 81px);
+  }
+  .quad--apex .quad__code { color: var(--ah-gold); }
+  .quad--apex .quad__name {
+    font-family: var(--serif);
+    font-weight: 700;
+    font-style: normal;
+    letter-spacing: 0.06em;
+    color: var(--ah-white);
+  }
+  .quad--apex .quad__thesis { color: var(--ah-gold); font-style: italic; }
 
   /* ───────────────────────────────────────────────────────────
      STACK DIAGRAM
@@ -608,7 +638,7 @@
       <dt>System</dt>     <dd>SEAL v2.0 (formerly THEATER)</dd>
       <dt>Author</dt>     <dd>Ebenz Augustave / ANP Studio</dd>
       <dt>Lineage</dt>    <dd>AKTE → DEADLIGHT → SEAL</dd>
-      <dt>Palettes</dt>   <dd>4 (CW · RB · AN · DP) — Air pending</dd>
+      <dt>Palettes</dt>   <dd>5 (CW · RB · AN · DP · AH)</dd>
       <dt>Doc types</dt>  <dd>6 (CODEX · CARD · STACK · BRIEF · COVER · INDEX)</dd>
       <dt>Iron rules</dt> <dd>8 — non-negotiable</dd>
       <dt>Stage</dt>      <dd>Released</dd>
@@ -624,8 +654,8 @@
       <span class="right">Codex Entry / Self-Referential</span>
     </div>
     <div class="prose">
-      <p>SEAL is a Claude skill in the AKTE mold — installable, opinionated, four-palette canon, six document types, eight iron rules. It generates brand doctrine for the new defense-industrial stack: <strong>Coldwater Pragmatism</strong> for the maritime layer, <strong>Rustbelt Kinetic</strong> for the production base, <strong>Anechoic Minimal</strong> for the spectrum, and <strong>Desert Pragmatism</strong> as the founding aesthetic that the others define themselves against.</p>
-      <p>The premise: defense-tech companies need doctrinally specific visual languages, not generic "futuristic" mood-boards. Each operational domain (sea / factory / spectrum / ground) has its own constraints, lineage, and accent grammar. SEAL codifies those.</p>
+      <p>SEAL is a Claude skill in the AKTE mold — installable, opinionated, five-palette canon, six document types, eight iron rules. It generates brand doctrine for the new defense-industrial stack: <strong>Coldwater Pragmatism</strong> for the maritime layer, <strong>Rustbelt Kinetic</strong> for the production base, <strong>Anechoic Minimal</strong> for the spectrum, <strong>Desert Pragmatism</strong> for the ground-truth layer, and <strong>Apex Heraldic</strong> for the air-superiority and strategic-strike layer above.</p>
+      <p>The premise: defense-tech companies need doctrinally specific visual languages, not generic "futuristic" mood-boards. Each operational domain (sea / air / land / spectrum / industrial substrate) has its own constraints, lineage, and accent grammar. SEAL codifies those.</p>
       <p>This document is itself a CODEX entry — the system documenting itself in its own format. Read as a structural reference for what a finished doctrine entry looks like rendered.</p>
     </div>
   </section>
@@ -707,6 +737,23 @@
         <p class="quad__thesis">Build for the FOB. Everything else follows.</p>
       </div>
 
+      <div class="quad quad--apex">
+        <div>
+          <div class="quad__code">SEAL—AH · APEX HERALDIC</div>
+          <h3 class="quad__name">Apex Heraldic</h3>
+          <p class="quad__domain">Air superiority / strategic strike / hypersonics / standoff weapons / strategic ISR. The above-all layer. B-21, F-22, KC-46, Hermeus, Anduril Fury, Kratos Valkyrie.</p>
+          <div class="quad__swatches" style="border-color: var(--ah-white);">
+            <div class="quad__swatch" style="background: var(--ah-bg); border-color: var(--ah-white);"></div>
+            <div class="quad__swatch" style="background: var(--ah-steel); border-color: var(--ah-white);"></div>
+            <div class="quad__swatch" style="background: var(--ah-airforce); border-color: var(--ah-white);"></div>
+            <div class="quad__swatch" style="background: var(--ah-white); border-color: var(--ah-white);"></div>
+            <div class="quad__swatch" style="background: var(--ah-gold); border-color: var(--ah-white);"></div>
+            <div class="quad__swatch" style="background: var(--ah-red); border-color: var(--ah-white);"></div>
+          </div>
+        </div>
+        <p class="quad__thesis">Range is power. Altitude is authority.</p>
+      </div>
+
     </div>
   </section>
 
@@ -772,7 +819,7 @@
       <div class="rule">
         <div class="rule__num">RULE 03</div>
         <h3 class="rule__title">One protected accent</h3>
-        <p class="rule__body">Each palette reserves one high-saturation color as a semantic class — alert, signal, ID, completion. Never decoration. CW = orange. RB = arc-blue. AN = P31. DP = cerise.</p>
+        <p class="rule__body">Each palette reserves one high-saturation color as a semantic class — alert, signal, ID, completion. Never decoration. CW = orange. RB = arc-blue. AN = P31. DP = cerise. AH = heraldic gold.</p>
       </div>
       <div class="rule">
         <div class="rule__num">RULE 04</div>
